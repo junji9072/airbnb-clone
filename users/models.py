@@ -33,3 +33,4 @@ class User(AbstractUser):
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
     superhost = models.BooleanField(default=False)  # BooleanField 통해서 참/거짓값을 넣어줍니다.
+

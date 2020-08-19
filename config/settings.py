@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+import os, json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +20,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: 운영 시에 사용된 비밀 키를 노출하지 마십시오
-SECRET_KEY = "eb^9kuims+td@mfi4)wi*dm(%pj#ms$peqzbyzb=7$4if7%ja3"
+secret_file = os.path.join(BASE_DIR, "secrets.json")
 
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: 운영 시에는 DEBUG 설정을 켜지 마십시오.
 DEBUG = True
 
@@ -37,7 +50,14 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-PROJECT_APPS = ["users.apps.UsersConfig"]
+
+THIRD_PARTY_APPS = ["django_countries"]
+PROJECT_APPS = [
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
+]
+
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
