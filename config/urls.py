@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+
+# from . import settings 이렇게 할 수도 있지만 장고에서는 이렇게 해서는 안됩니다. 파일명은 바뀔수도 있기 때문입니다.
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# 만약 내가 개발중이라면, 폴더안의 파일들을 제공합니다. 서버로 올릴 시에는 나중에 배포시에 배우게 될 것입니다!

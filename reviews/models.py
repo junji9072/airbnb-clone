@@ -12,10 +12,13 @@ class Review(core_models.TimeStampedModel):
     location = models.IntegerField()
     check_in = models.IntegerField()
     value = models.IntegerField()
+    # 유저는 리뷰를 쓰는 사람이며 1명이여야 하므로 FK를 써줍니다.
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE
-    )  # 유저는 리뷰를 쓰는 사람이며 1명이여야 하므로 FK를 써줍니다.
-    room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE)
+        "users.User", related_name="reviews", on_delete=models.CASCADE
+    )
+    room = models.ForeignKey(
+        "rooms.Room", related_name="reviews", on_delete=models.CASCADE
+    )
 
     """
     def __str__(self):
@@ -28,3 +31,16 @@ class Review(core_models.TimeStampedModel):
 
     def __str__(self):
         return f"{self.review} - {self.room}"  # 파이썬 포맷팅을 통해서 리뷰와 이름을 보여줍니다.
+
+    def rating_average(self):  # 커스텀 함수를 모델에 적용해서 사이트 전체에 적용될 수 있도록 합니다.
+        avg = (
+            self.accuracy
+            + self.communication
+            + self.cleanliness
+            + self.location
+            + self.check_in
+            + self.value
+        ) / 6
+        return round(avg, 2)  # 소수점 자리가 너무 많아서 round함수를 통해서 소수점 2자리 까지만 보여주도록 합니다.
+
+    rating_average.short_description = "Avg."

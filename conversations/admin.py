@@ -7,7 +7,7 @@ class MessageAdmin(admin.ModelAdmin):
 
     """ Message Admin Definition """
 
-    pass
+    list_display = ("__str__", "created")  # 메시지의 시간체크를 위해 적습니다.
 
 
 @admin.register(models.Conversation)
@@ -15,4 +15,4 @@ class ConversationAdmin(admin.ModelAdmin):
 
     """ Conversation Admin Definition """
 
-    pass
+    list_display = ("__str__", "count_messages", "count_participants")

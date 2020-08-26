@@ -26,7 +26,7 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
     # null은 DB에 사용되는 것이므로 blank 옵션을 주지 않으면 빈 값이라며 작성되지 않습니다.
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(blank=True)  # default="" 혹은 null=True로 비어있는 값도 허용합니다.
     birthdate = models.DateField(blank=True, null=True)
