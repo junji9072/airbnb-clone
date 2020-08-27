@@ -16,9 +16,9 @@ class User(AbstractUser):
     LANGUAGE_CHOICES = ((LANGUAGE_ENGLISH, "English"), (LANGUAGE_KOREAN, "Korean"))
 
     CURRENCY_USD = "usd"
-    CURRENCY_USD = "krw"
+    CURRENCY_KRW = "krw"
 
-    CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_USD, "KRW"))
+    CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
     GENDER_CHOICES = (
         (GENDER_MALE, "Male"),

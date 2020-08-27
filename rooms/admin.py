@@ -113,6 +113,8 @@ class RoomAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         return obj.photos.count()
 
+    count_photos.short_description = "Photo Count"
+
     # count_amenities.short_description = 'hi'로 설명란을 바꿔줄 수 있습니다. functionality이므로 다른 것과 다르게 클릭 불가합니다. 장고가 함수란건 알기 때문입니다!
 
 
