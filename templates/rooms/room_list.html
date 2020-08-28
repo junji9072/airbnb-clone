@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block page_name %}
+    Home
+{% endblock page_name %}
+
+{% block content %}
+
+    {{now}}
+    {% for room in rooms  %}
+        <h3>
+            <a href="{% url 'rooms:detail' room.pk %}">
+                {{room.name}} / ${{room.price}}
+            </a>
+        </h3>
+    {% endfor %}
+    <!-- <h5> Page {{page}} of {{page_count}}</h5> 총 페이지에서 몇번째 페이지에 있는지 알려줍니다.-->
+    <h5>
+    <!-- 이전페이지를 1페이지에서는 숨깁니다. -->
+    {% if page_obj.has_previous %}
+        <!-- 그냥 +-1로 해주면 되지 않을까? 하지만 장고는 템플리셍서 커스텀 로직을 쓰는걸 허용하지 않습니다. 그래서 filters를 사용해서 보여줍니다. -->
+        <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+    {% endif %}
+
+    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+
+    <!-- 만약 마지막 페이지라면 다음페이지 버튼을 숨겨줍니다. --> 
+    {% if page_obj.has_next  %}
+        <a href="?page={{page_obj.next_page_number}}">Next</a>
+    {% endif %}
+    </h5>
+
+{% endblock content %}

@@ -1,4 +1,5 @@
 from django.db import models  # 장고와 관련된 패키지를 import 합니다.
+from django.urls import reverse
 from django_countries.fields import CountryField  # 외부 패키지를 import 합니다.
 from core import models as core_models  # 내가 만들 패키지를 import 합니다.
 
@@ -104,6 +105,9 @@ class Room(core_models.TimeStampedModel):
     def save(self, *args, **kwargs):  # args(arguments) kwargs(keyword arguments)
         self.city = str.capitalize(self.city)  # 첫글자가 대문자로 바뀌도록 했습니다.
         super().save(*args, **kwargs)  # 어드민 뿐만 아니라 모든 곳에서 모델을 수정생성시에도 적용 됩니다.
+
+    def get_absolute_url(self):
+        return reverse("rooms:detail", kwargs={"pk": self.pk})
 
     def total_rating(self):  # room이 reviews를 가지고 있습니다.
         all_reviews = self.reviews.all()
