@@ -1,0 +1,9 @@
+<a href="{% url "core:home" %}">Nbnb</a>
+<ul>
+    <!-- 장고 템플릿에서는 context processor가 있어서 쿠키를 가져와서 유저를 찾아 템플릿에 자동으로 넣어줍니다. -->
+    {% if user.is_authenticated %}
+        <li><a href="{% url "users:logout" %}">Log out</a></li>
+    {% else %}
+        <li><a href="{% url "users:login" %}">Log in</a></li>
+    {% endif %}
+</ul>

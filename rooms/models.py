@@ -77,7 +77,7 @@ class Room(core_models.TimeStampedModel):
     city = models.CharField(max_length=80)
     price = models.IntegerField()  # Decimal로 하면 소수점 첫째짜리 까지 표시되지만 필요없습니다.
     address = models.CharField(max_length=140)
-    guests = models.IntegerField()
+    guests = models.IntegerField(help_text="How many people will be staying?")
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
     baths = models.IntegerField()

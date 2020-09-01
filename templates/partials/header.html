@@ -3,4 +3,7 @@
     <ul>
         <li><a href="#">Login</a></li>
     </ul>
+    <form method="get" action="{% url "rooms:search" %}"><!-- /rooms/search로 보내주지만~ 우리는 배운 url 템플릿을 활용해 봅시다. -->
+        <input name="city" placeholder="Search by City" />
+    </form>
 </header> 
